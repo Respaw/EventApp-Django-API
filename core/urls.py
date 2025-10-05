@@ -13,5 +13,5 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"), # Для обновления access токена
     path("api/token/verify/", TokenVerifyView.as_view(), name="token_verify"),   # Для проверки токена (опционально)
 
-    path("api/v1/", include("api.urls")), # Ваш существующий эндпоинт
+    path('api/v1/', include('api.urls')), # Ваш существующий эндпоинт
 ]

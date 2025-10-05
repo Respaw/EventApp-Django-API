@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'api',
+    'api', # <-- УБЕДИТЕСЬ, ЧТО ЭТА СТРОКА ЕСТЬ
 ]
 
 MIDDLEWARE = [
@@ -159,4 +159,14 @@ SIMPLE_JWT = {
     "TOKEN_TYPE_REFRESH": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_TYPE_VERIFY": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
     "TOKEN_TYPE_BLACKLIST": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
+}
+AUTH_USER_MODEL = 'api.User' # <--- ЭТА СТРОКА ОЧЕНЬ ВАЖНАЯ
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', # Если вы хотите, чтобы все эндпоинты по умолчанию требовали аутентификации
+    ),
 }

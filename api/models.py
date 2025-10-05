@@ -1,3 +1,5 @@
+# backend/api/models.py
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -6,6 +8,24 @@ class User(AbstractUser):
     # Пока добавляем только одно поле для репутации.
     # По умолчанию у всех 100% надежность.
     reputation = models.IntegerField(default=100, help_text="Reputation in percentage")
+
+    # ИСПРАВЛЕНИЕ: Добавлены related_name для избежания конфликтов
+    groups = models.ManyToManyField(
+        'auth.Group',
+        verbose_name='groups',
+        blank=True,
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+        related_name="api_user_set", # <--- ДОБАВЛЕНО
+        related_query_name="user",
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        verbose_name='user permissions',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        related_name="api_user_permissions_set", # <--- ДОБАВЛЕНО
+        related_query_name="user",
+    )
 
     def __str__(self):
         return self.username
